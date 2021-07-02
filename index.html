@@ -66,5 +66,37 @@
     var mapEvents = new H.mapevents.MapEvents(map);
     // Initialize for map behaviour on events
     var behavior = new H.mapevents.Behavior(mapEvents);
+
+    // adjust tilt and rotation of the map
+    map.getViewModel().setLookAtData({
+      tilt: 60,
+      //heading: 90, // angle relative to North
+    });
+
+    function getBrowserPosition() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          // console.log(position.coords);
+          let browserPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          let marker = new H.map.Marker(browserPosition);
+          map.addObject(marker);
+        });
+      } else {
+        alert("Geolocation is not supported by this browser!");
+      }
+    }
+
+    getBrowserPosition();
+
+    // Add event listener:
+    map.addEventListener("tap", function (evt) {
+      // Log 'tap' event
+      let pointer = evt.currentPointer;
+      //console.log(evt);
+      console.log(map.screenToGeo(pointer.viewportX, pointer.viewportY));
+    });
   </script>
 </html>
