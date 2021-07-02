@@ -1,12 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Charging EV</title>
-</head>
-<body>
-    
-</body>
+    <!-- map core -->
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+    ></script>
+    <!-- map services -->
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+    ></script>
+    <!-- source for map ui -->
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"
+    ></script>
+    <!-- style sheet for map UI -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://js.api.here.com/v3/3.1/mapsjs-ui.css"
+    />
+    <!-- source for map events -->
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"
+    ></script>
+    <script src="creds.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div
+      id="mapContainer"
+      style="
+        align-self: center;
+        width: 100vw;
+        height: 80vh;
+        background-color: #a87bdf;
+      "
+    ></div>
+  </body>
+  <script>
+    // Initialize platform with JS API KEY
+    var platform = new H.service.Platform({
+      apikey: window.hereCreds.JSKEY,
+    });
+    // initializing default layers for the map
+    var defaultLayers = platform.createDefaultLayers();
+    // rendering map within the container on the page
+    var map = new H.Map(
+      document.getElementById("mapContainer"),
+      defaultLayers.vector.normal.map, // rendering vector map with NORMAL map view.
+      {
+        zoom: 11, // Initial zoom level of map
+        center: { lat: 52.53086, lng: 13.38474 }, // Initial center of map
+      }
+    );
+    // creating default UI for map
+    var ui = H.ui.UI.createDefault(map, defaultLayers);
+    // initialize basic map events
+    var mapEvents = new H.mapevents.MapEvents(map);
+    // Initialize for map behaviour on events
+    var behavior = new H.mapevents.Behavior(mapEvents);
+  </script>
 </html>
