@@ -11,7 +11,7 @@ var map = new H.Map(
     defaultLayers.vector.normal.map, // rendering vector map with NORMAL map view.
     {
         zoom: 11, // Initial zoom level of map
-        center: { lat: 52.53086, lng: 13.38474 }, // Initial center of map
+        center: { lat: 51.5033, lng: 0.1196 }, // Initial center of map
     }
 );
 // creating default UI for map
