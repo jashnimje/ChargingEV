@@ -8,9 +8,11 @@ var routingParameters = {
     routingMode: 'fast',
     origin: '52.4569927,13.380545',
     destination: '52.52407865,13.429371',
+    via: '52.505582,13.3692024!stopDuration=900',
     alternatives: 3,
     departureTime: '2020-05-13T09:00:00',
-    return: 'polyline,summary',
+    return: 'polyline,summary,actions,instructions',
+    spans: 'speedLimit'
 };
 
 
@@ -28,8 +30,13 @@ var onResult = function (result) {
                 let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
 
                 // Create a polyline to display the route:
+                // let routeLine = new H.map.Polyline(linestring, {
+                //     style: { strokeColor: '#034F84', lineWidth: 3 }
+                // });
+
+                // Create a polyline to display the route in dashed form:
                 let routeLine = new H.map.Polyline(linestring, {
-                    style: { strokeColor: '#034F84', lineWidth: 3 }
+                    style: { strokeColor: '#034F84', lineWidth: 3, lineDash: [1, 2] }
                 });
 
                 // Create a marker for the start point:
@@ -48,6 +55,11 @@ var onResult = function (result) {
                 // Set the map's viewport to make the whole route visible:
                 map.getViewModel().setLookAtData({ bounds: routeLine.getBoundingBox() });
 
+                // Step by Step Directions
+                // section.actions.forEach(action => {
+                //     document.getElementById("panel").innerHTML += `<br>` + action.instruction;
+
+                // });
             });
             document.getElementById("panel").innerHTML += 'Route ' + (result.routes.indexOf(route) + 1) + ' Distance: ' + totalLength / 1000 + ' Km' + ' Duration: ' + totalDuration.toMMSS() + `<br>`;
         });
