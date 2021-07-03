@@ -97,6 +97,7 @@ function clickToMark() {
             ui.addBubble(bubble);
         } else {
             // Log 'tap' and 'mouse' events:
+            console.log(evt);
             let pointer = evt.currentPointer;
             let pointerPosition = map.screenToGeo(
                 pointer.viewportX,
@@ -107,7 +108,7 @@ function clickToMark() {
                 volatility: true,
             });
             pointerMarker.draggable = true;
-            pointerMarker.setData("Charging EV Data");
+            pointerMarker.setData("Charging EV Data: " + pointerPosition);
             map.addObject(pointerMarker);
         }
     });
