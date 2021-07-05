@@ -32,7 +32,6 @@
       src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"
     ></script>
     <script src="creds.js" type="text/javascript"></script>
-    
   </head>
   <body>
     <div
@@ -52,10 +51,26 @@
       >
         <span>Highlight hospitals </span>
       </button> -->
+        <div class="wrapper">
+          <div class="search-input">
+              <input id="place" type="text" placeholder="Type to search ... ">
+              <button onclick = "grabplacedata()">Search</button>
+              <div class="autocom-box" >
+                  <!-- <li>Clacton-on-Sea</li>
+                  <li>Oxford</li>
+                  <li>York</li>
+                  <li>Poole</li>
+                  <li>Harrow</li> -->
+              </div>
+              
+          </div>
+      </div>
       <div id="panel" style= "align-self: center; width: 100vw; height: 20vh; text-align: left;"><p style="text-align: center;">Route Details</br></p></div>
       
     </body>
     <script src="maps.js" type="text/javascript"></script>
     <script src="geocoder.js" type="text/javascript"></script>
     <script src="routing.js" type="text/javascript"></script>
+    <script src="suggestiongenerator.js" type="text/javascript"></script>
+    <script src="suggestions.js" type="text/javascript"></script>
 </html>

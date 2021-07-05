@@ -2,9 +2,9 @@
 // Get an instance of the geocoding service:
 var geocoder = platform.getSearchService();
 
-function search() {
+function search(placename) {
     geocoder.geocode({
-        q: 'Cupertino'
+        q: placename
     }, (result) => {
         // Add a marker for each location found
         result.items.forEach((item) => {
@@ -19,7 +19,7 @@ function search() {
         });
     }, alert);
 }
-search();
+// search('-1');
 
 function geocodeAndSearch(lat, lng) {
 
