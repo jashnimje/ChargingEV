@@ -4,13 +4,18 @@ var geocoder = platform.getSearchService();
 
 function search() {
     geocoder.geocode({
-        q: 'London'
+        q: 'Cupertino'
     }, (result) => {
         // Add a marker for each location found
         result.items.forEach((item) => {
-            console.log(item.position.lat, item.position.lng);
+            // console.log(item.position.lat, item.position.lng);
             geocodeAndSearch(item.position.lat, item.position.lng);
-            map.addObject(new H.map.Marker(item.position));
+            let pointerMarker = map.addObject(new H.map.Marker(item.position));
+            pointerMarker.setData("Location: " + item.position.lat + ", " + item.position.lng);
+            map.addObject(pointerMarker);
+            if (item instanceof H.map.Marker) {
+                ui.addBubble(bubble);
+            }
         });
     }, alert);
 }
@@ -71,7 +76,9 @@ function geocodeAndSearch(lat, lng) {
                 icon: imageIcon,
                 volatility: true,
             });
-            pointerMarker.setData("Location: " + item.position.lat + ", " + item.position.lng + " No. of Connectors: " + noOfConnectors + " Amps: " + amps);
+            let Lat = item.position.lat;
+            let Lng = item.position.lng;
+            pointerMarker.setData("Location: " + Lat + ", " + Lng + "</br> No. of Connectors: " + noOfConnectors + "</br>Amps: " + amps + "</br><button onclick='test(Lat, Lng)'>Test</button>");
             map.addObject(pointerMarker);
             if (item instanceof H.map.Marker) {
                 // var bubble = new H.ui.InfoBubble(item.getGeometry(), {
