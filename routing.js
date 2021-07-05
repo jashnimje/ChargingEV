@@ -1,21 +1,32 @@
-
+// export const lat, lng;
 // Get an instance of the routing service version 8:
 var router = platform.getRoutingService(null, 8);
-function test(lat, lng) {
-    console.log(lat + ',' + lng);
+function directions(lat, lng) {
+
+    // console.log(lat, lng);
+    // Now I can use the promise followed by .then() 
+    // to make use of the values anywhere in the program
+    getLocationPromise.then((location) => {
+
+        currLat = location.latitude;
+        currLng = location.longitude;
+        // currLat = 37.581255;
+        // currLng = -120.9282888;
+        console.log(currLat + ", " + currLng);
+        // Create the parameters for the routing request:
+        EVLocation(currLat, currLng, lat, lng);
+
+    }).catch((err) => {
+        console.log(err);
+    })
 }
-let temp = '52.52407865';
 // Creating a promise out of the function
 let getLocationPromise = new Promise((resolve, reject) => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
 
-            // console.log(position.coords.latitude, position.coords.longitude) //test...
-
             lat = position.coords.latitude
             long = position.coords.longitude
-
-            // console.log("LATLONG1: ", lat, long) //test...
 
             // Resolving the values which I need
             resolve({
@@ -29,19 +40,7 @@ let getLocationPromise = new Promise((resolve, reject) => {
     }
 })
 
-// Now I can use the promise followed by .then() 
-// to make use of the values anywhere in the program
-getLocationPromise.then((location) => {
 
-    currLat = location.latitude;
-    currLng = location.longitude;
-    console.log(currLat + ", " + currLng);
-    // Create the parameters for the routing request:
-    EVLocation(currLat, currLng, temp, '13.429371');
-
-}).catch((err) => {
-    console.log(err);
-})
 
 function EVLocation(currLat, currLng, destLat, destLng) {
     var routingParameters = {

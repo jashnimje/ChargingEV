@@ -9,6 +9,8 @@ function search(placename) {
         // Add a marker for each location found
         result.items.forEach((item) => {
             // console.log(item.position.lat, item.position.lng);
+            map.removeObjects(map.getObjects());
+            getBrowserPosition();
             geocodeAndSearch(item.position.lat, item.position.lng);
             let pointerMarker = map.addObject(new H.map.Marker(item.position));
             pointerMarker.setData("Location: " + item.position.lat + ", " + item.position.lng);
@@ -76,10 +78,12 @@ function geocodeAndSearch(lat, lng) {
                 icon: imageIcon,
                 volatility: true,
             });
-            let Lat = item.position.lat;
-            let Lng = item.position.lng;
-            pointerMarker.setData("Location: " + Lat + ", " + Lng + "</br> No. of Connectors: " + noOfConnectors + "</br>Amps: " + amps + "</br><button onclick='test(Lat, Lng)'>Test</button>");
+            let lat = item.position.lat;
+            let lng = item.position.lng;
+            console.log(item);
+            pointerMarker.setData("Location: " + lat + ", " + lng + "</br> No. of Connectors: " + noOfConnectors + "</br>Amps: " + amps + "</br><button id='bubbleButton' onclick='directions(" + lat + "," + lng + ")' >Directions</button>");
             map.addObject(pointerMarker);
+
             if (item instanceof H.map.Marker) {
                 // var bubble = new H.ui.InfoBubble(item.getGeometry(), {
                 //     content: 'Distance: ' + item.distance + ' m' + amps, // data set while adding the marker object

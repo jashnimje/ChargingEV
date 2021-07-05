@@ -23,40 +23,40 @@ var behavior = new H.mapevents.Behavior(mapEvents);
 
 
 // Map Style
-function mapStyle() {
-    // var provider = map.getBaseLayer().getProvider();
+// function mapStyle() {
+//     var provider = map.getBaseLayer().getProvider();
 
-    // var mapStyle = new H.map.Style(
-    //     "Resources/font_arial.yaml",
-    //     "https://js.api.here.com/v3/3.1/styles/omv/"
-    // );
+//     var mapStyle = new H.map.Style(
+//         "Resources/font_arial.yaml",
+//         "https://js.api.here.com/v3/3.1/styles/omv/"
+//     );
 
-    // provider.setStyle(mapStyle);
+//     provider.setStyle(mapStyle);
 
-    //Change Language
-    // var ui = H.ui.UI.createDefault(map, defaultLayers, 'de-DE');
+//     // Change Language
+//     var ui = H.ui.UI.createDefault(map, defaultLayers, 'de-DE');
 
-    //Change Default location of Controls
-    // var mapSettings = ui.getControl('mapsettings');
-    // mapSettings.setAlignment('top-right');
+//     // Change Default location of Controls
+//     var mapSettings = ui.getControl('mapsettings');
+//     mapSettings.setAlignment('top-right');
 
-    // Change the Meter to Mile
-    // ui.setUnitSystem(H.ui.UnitSystem.IMPERIAL);
-}
+//     // Change the Meter to Mile
+//     ui.setUnitSystem(H.ui.UnitSystem.IMPERIAL);
+// }
 
 // Hospital Color Change
-function highlightHosp() {
-    var hospStyle = provider.getStyle();
-    var hospConfig = hospStyle.extractConfig('landuse.hospital');
-    hospConfig.layers.landuse.hospital.draw.polygons.color = 'rgb(255,0,0)';
-    hospStyle.mergeConfig(hospConfig);
-}
+// function highlightHosp() {
+//     var hospStyle = provider.getStyle();
+//     var hospConfig = hospStyle.extractConfig('landuse.hospital');
+//     hospConfig.layers.landuse.hospital.draw.polygons.color = 'rgb(255,0,0)';
+//     hospStyle.mergeConfig(hospConfig);
+// }
 
 // adjust tilt and rotation of the map
-map.getViewModel().setLookAtData({
-    tilt: 60,
-    //heading: 90, // angle relative to North
-});
+// map.getViewModel().setLookAtData({
+//     tilt: 60,
+//     //heading: 90, // angle relative to North
+// });
 
 function getBrowserPosition() {
     if (navigator.geolocation) {
