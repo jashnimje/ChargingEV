@@ -1,4 +1,3 @@
-
 // Get an instance of the geocoding service:
 var geocoder = platform.getSearchService();
 
@@ -70,9 +69,25 @@ function geocodeAndSearch(lat, lng) {
 
     function onResult(result) {
         console.log(result);
+        const mapObj = [];
+        var group = new H.map.Group();
+        let i = 0;
         result.items.forEach(item => {
             let amps = item.extended.evStation.connectors[0].chargingPoint.ampsRange;
             let noOfConnectors = item.extended.evStation.connectors[0].chargingPoint.numberOfConnectors;
+            let EVName = item.title;
+            let EVAddress = item.address.label;
+            EVAddress = EVAddress.replace("EV Charging Station, ", "");
+            // let EVAddress = item.address.houseNumber + " " + item.address.street + ", " + item.address.city + ", " + item.address.stateCode + " " + item.address.postalCode + ", " + item.address.countryName;
+
+            let temp = item.extended.evStation.connectors;
+
+            let ConString = "";
+            for (let i = 0; i < temp.length; i++) {
+                let connectorTypes = item.extended.evStation.connectors[i].connectorType.name;
+                ConString += ((i + 1) + ") " + connectorTypes + "</br>");
+            }
+
 
             let pointerMarker = new H.map.Marker(item.position, {
                 icon: imageIcon,
@@ -81,8 +96,16 @@ function geocodeAndSearch(lat, lng) {
             let lat = item.position.lat;
             let lng = item.position.lng;
             console.log(item);
-            pointerMarker.setData("Location: " + lat + ", " + lng + "</br> No. of Connectors: " + noOfConnectors + "</br>Amps: " + amps + "</br><button id='bubbleButton' onclick='directions(" + lat + "," + lng + ")' >Directions</button>");
+            pointerMarker.setData(
+                "<b>Name:</b> " + EVName +
+                "</br><b>Address:</b> " + EVAddress +
+                "</br> <b>Location:</b> " + lat + ", " + lng +
+                "</br> <b>No. of Connectors:</b> " + noOfConnectors +
+                "</br> <b>Connector Types:</b></br> " + ConString +
+                "</br> <button id='bubbleButton' onclick='directions(" + lat + "," + lng + ")' >Directions</button>");
+
             map.addObject(pointerMarker);
+            group.addObject(pointerMarker);
 
             if (item instanceof H.map.Marker) {
                 // var bubble = new H.ui.InfoBubble(item.getGeometry(), {
@@ -91,6 +114,11 @@ function geocodeAndSearch(lat, lng) {
                 // show info bubble
                 ui.addBubble(bubble);
             }
+        });
+        map.addObject(group);
+        var bbox = group.getBoundingBox();
+        map.getViewModel().setLookAtData({
+            bounds: bbox
         });
     }
 
@@ -101,5 +129,3 @@ function geocodeAndSearch(lat, lng) {
     // geocoder.lookup(geocoderParams, onResult, alert);
     // geocoder.reverseGeocode(geocoderParams, onResult, alert);
 }
-
-

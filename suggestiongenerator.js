@@ -2,7 +2,6 @@ const searchwrapper = document.querySelector(".search-input");
 const inputbox = searchwrapper.querySelector("input");
 const suggestionbox = searchwrapper.querySelector(".autocom-box");
 
-
 inputbox.onkeyup = (e) => {
     let userdata = e.target.value;
     let emptyarray = [];
@@ -21,8 +20,7 @@ inputbox.onkeyup = (e) => {
         for (let i = 0; i < alllist.length; i++) {
             alllist[i].setAttribute("onclick", "select(this)");
         }
-    }
-    else {
+    } else {
         searchwrapper.classList.remove("active");
     }
 }
@@ -37,16 +35,13 @@ function showsuggestion(list) {
     if (!list.length) {
         uservalue = inputbox.value;
         listdata = '<li>' + uservalue;
-    }
-    else {
+    } else {
         listdata = list.join('');
     }
     if (listdata != undefined) {
         suggestionbox.innerHTML = listdata;
     }
 }
-
-
 
 function grabplacedata() {
     var str = document.getElementById("place").value;

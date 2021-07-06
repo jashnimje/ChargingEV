@@ -1,6 +1,7 @@
 // export const lat, lng;
 // Get an instance of the routing service version 8:
 var router = platform.getRoutingService(null, 8);
+
 function directions(lat, lng) {
 
     // console.log(lat, lng);
@@ -75,7 +76,11 @@ function EVLocation(currLat, currLng, destLat, destLng) {
 
                     // Create a polyline to display the route in dashed form:
                     let routeLine = new H.map.Polyline(linestring, {
-                        style: { strokeColor: '#034F84', lineWidth: 3, lineDash: [1, 2] }
+                        style: {
+                            strokeColor: '#034F84',
+                            lineWidth: 3,
+                            lineDash: [1, 2]
+                        }
                     });
 
                     // Create a marker for the start point:
@@ -92,7 +97,9 @@ function EVLocation(currLat, currLng, destLat, destLng) {
                     map.addObjects([routeLine, startMarker, endMarker]);
 
                     // Set the map's viewport to make the whole route visible:
-                    map.getViewModel().setLookAtData({ bounds: routeLine.getBoundingBox() });
+                    map.getViewModel().setLookAtData({
+                        bounds: routeLine.getBoundingBox()
+                    });
 
                     // Step by Step Directions
                     // section.actions.forEach(action => {

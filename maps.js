@@ -11,7 +11,10 @@ var map = new H.Map(
     defaultLayers.vector.normal.map, // rendering vector map with NORMAL map view.
     {
         zoom: 11, // Initial zoom level of map
-        center: { lat: 52.466704, lng: 13.3672 }, // Initial center of map
+        center: {
+            lat: 51.528308,
+            lng: -0.3817811
+        }, // Initial center of map
     }
 );
 // creating default UI for map
@@ -67,7 +70,11 @@ function getBrowserPosition() {
                 lng: position.coords.longitude,
             };
             let marker = new H.map.Marker(browserPosition);
+            marker.setData("Location: " + browserPosition.lat + ", " + browserPosition.lng);
             map.addObject(marker);
+            if (position instanceof H.map.Marker) {
+                ui.addBubble(bubble);
+            }
         });
     } else {
         alert("Geolocation is not supported by this browser!");
@@ -77,15 +84,10 @@ function getBrowserPosition() {
 // Current Default Marker
 var imageIcon = new H.map.Icon("Resources/marker.svg");
 
-// Customize the Circle
-var circleStyle = {
-    fillColor: "RGBA(153, 233, 242, 0.1)",
-    strokeColor: "RGB(11, 114, 133)",
-    lineWidth: 3,
-};
 
 // Add tap event listener:
 function clickToMark() {
+
     map.addEventListener("tap", function (evt) {
         if (evt.target instanceof H.map.Marker) {
             // checking if the tapped obeject on the map is already a marker
@@ -95,26 +97,35 @@ function clickToMark() {
             });
             // show info bubble
             ui.addBubble(bubble);
-        } else {
-            // Log 'tap' and 'mouse' events:
-            console.log(evt);
-            let pointer = evt.currentPointer;
-            let pointerPosition = map.screenToGeo(
-                pointer.viewportX,
-                pointer.viewportY
-            );
-            let pointerMarker = new H.map.Marker(pointerPosition, {
-                icon: imageIcon,
-                volatility: true,
-            });
-            pointerMarker.draggable = true;
-            pointerMarker.setData("Charging EV Data: " + pointerPosition);
-            map.addObject(pointerMarker);
         }
+        // else {
+        //     // Log 'tap' and 'mouse' events:
+        //     console.log(evt);
+        //     let pointer = evt.currentPointer;
+        //     let pointerPosition = map.screenToGeo(
+        //         pointer.viewportX,
+        //         pointer.viewportY
+        //     );
+        //     let pointerMarker = new H.map.Marker(pointerPosition, {
+        //         icon: imageIcon,
+        //         volatility: true,
+        //     });
+        //     pointerMarker.draggable = true;
+        //     pointerMarker.setData("Charging EV Data: " + pointerPosition);
+        //     map.addObject(pointerMarker);
+        // }
     });
 }
 
 function clickDragMarkers(map, behavior) {
+
+    // Customize the Circle
+    var circleStyle = {
+        fillColor: "RGBA(153, 233, 242, 0.1)",
+        strokeColor: "RGB(11, 114, 133)",
+        lineWidth: 3,
+    };
+
     // disable the default draggability of the underlying map
     // and calculate the offset between mouse and target's position
     // when starting to drag a marker object:
@@ -175,4 +186,4 @@ function clickDragMarkers(map, behavior) {
 
 getBrowserPosition();
 clickToMark();
-clickDragMarkers(map, behavior);
+// clickDragMarkers(map, behavior);
