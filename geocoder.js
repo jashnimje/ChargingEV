@@ -11,7 +11,7 @@ function search(placename) {
             map.removeObjects(map.getObjects());
             getBrowserPosition();
             geocodeAndSearch(item.position.lat, item.position.lng);
-            let pointerMarker = map.addObject(new H.map.Marker(item.position));
+            let pointerMarker = new H.map.Marker(item.position);
             pointerMarker.setData("Location: " + item.position.lat + ", " + item.position.lng);
             map.addObject(pointerMarker);
             if (item instanceof H.map.Marker) {
@@ -68,7 +68,7 @@ function geocodeAndSearch(lat, lng) {
     }
 
     function onResult(result) {
-        console.log(result);
+        // console.log(result);
         const mapObj = [];
         var group = new H.map.Group();
         let i = 0;
@@ -95,7 +95,7 @@ function geocodeAndSearch(lat, lng) {
             });
             let lat = item.position.lat;
             let lng = item.position.lng;
-            console.log(item);
+            // console.log(item);
             pointerMarker.setData(
                 "<b>Name:</b> " + EVName +
                 "</br><b>Address:</b> " + EVAddress +

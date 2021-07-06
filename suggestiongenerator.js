@@ -48,3 +48,27 @@ function grabplacedata() {
     search(str);
 
 }
+
+function intial_position() {
+    const intial_position = [
+        "London, UK",
+        "Wales, UK",
+        "Manchester, UK",
+        "Edinburg, UK",
+        "Southampton, UK",
+        "Taunton, UK",
+        "Southampton, UK",
+        "Leeds, UK",
+        "Plymouth, UK",
+        "Scotland, UK",
+        "Cranfield University, UK",
+    ];
+
+
+    for (let i = 0; i < intial_position.length; i++) {
+        search(intial_position[i]);
+    }
+
+}
+
+intial_position();
